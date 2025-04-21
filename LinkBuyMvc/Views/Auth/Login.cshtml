@@ -1,0 +1,80 @@
+﻿@using LinkBuyLibrary.Models
+@model LoginViewModel
+
+<!-- Outer Row -->
+<div class="row justify-content-center">
+
+    <div class="col-xl-10 col-lg-12 col-md-9">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                        <img src="~/uploads/comprasLogin.png" alt="Login Imagem" class="img-fluid" />
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 mb-4" style="color: #5B4ABC;">Bem Vindo!</h1>
+                            </div>
+                            <form asp-action="Login" class="user">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                
+                                <div class="form-group">
+                                    <input asp-for="Email" class="form-control form-control-user" aria-describedby="emailHelp" placeholder="Email" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <input asp-for="Password" class="form-control form-control-user" placeholder="Senha" />
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+
+                                <input type="submit" value="Login" class="btn btn-user btn-block" />
+
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" style="color: #5B4ABC;" asp-area="" asp-controller="Auth" asp-action="Register">Criar conta!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@* <h4>Login</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Realizar Login" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div> *@
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,21 +1,23 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using LinkBuyMvc.Models;
+using LinkBuyLibrary.Services;
 
 namespace LinkBuyMvc.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    protected readonly ProdutoService _produtoService;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ProdutoService produtoService)
     {
-        _logger = logger;
+        _produtoService = produtoService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var produtos = await _produtoService.GetAllProdutos();
+        return View(produtos);
     }
 
     public IActionResult Privacy()

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LinkBuyLibrary.Models
 {
@@ -15,16 +17,20 @@ namespace LinkBuyLibrary.Models
         public decimal Valor { get; set; }
 
         [Required(ErrorMessage = "O campo de estoque é obrigatorio")]
+        [Range(1,9999, ErrorMessage = "O campo deve contter um valor entre 1 e 9999")]
         public int Estoque { get; set; }
 
-        [Required(ErrorMessage = "A imagem do produto é obrigatoria")]
+        [NotMapped]
+        [Required(ErrorMessage = "A imagem do produto é obrigatória")]
+        public IFormFile? ImagemUpload { get; set; }
+
         public string? Imagem { get; set; }
 
         public int CategoriaId { get; set; }
-        public Categoria Categoria { get; set; }
+        public Categoria? Categoria { get; set; }
 
         public int VendedorId { get; set; }
-        public Vendedor Vendedor { get; set; }
+        public Vendedor? Vendedor { get; set; }
 
 
     }

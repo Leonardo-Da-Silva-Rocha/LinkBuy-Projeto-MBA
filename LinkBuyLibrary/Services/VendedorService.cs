@@ -29,6 +29,11 @@ namespace LinkBuyLibrary.Services
             return await _dbContext.Vendedores.FindAsync(id);
         }
 
+        public async Task<Vendedor?> GetVendedorByIdLoginAsync(string idLogin)
+        {
+            return await _dbContext.Vendedores.FirstOrDefaultAsync(v => v.FkLogin == idLogin);
+        }
+
         public async Task<int> DeleteVendedorAsync(Vendedor vendedor)
         {
             _dbContext.Remove(vendedor);
