@@ -4,7 +4,50 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="row justify-content-center">
+    <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="card  o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-5">
+                <h3 class="text-center" style="margin-bottom:25px; color:#6a0dac">Detalhes da categoria</h3>
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <table class="table table-dark table-striped-columns">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Descricao)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(model => model.Descricao)
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.Id">
+                                            <span><i class="fas fa-edit" style="margin-right: 5px;"></i></span>
+                                            Editar
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="user">
+    <a class="btn btn-user" style="background-color:#6a0dac !important; color:white;" asp-action="Index"> <span><i class="fas fa-arrow-left"></i></span>  Lista de categorias</a>
+</div>
+
+@* <h1>Details</h1>
 
 <div>
     <h4>Categoria</h4>
@@ -21,4 +64,4 @@
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
-</div>
+</div> *@

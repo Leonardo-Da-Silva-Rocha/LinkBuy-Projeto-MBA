@@ -36,7 +36,7 @@ namespace LinkBuyMvc.Controllers
 
                 if (result > 0)
                 {
-                    TempData["CreateCategoria"] = "sucesso";
+                    TempData["CategoriaMsgSucesso"] = "Categoria criada com sucesso!";
                     return RedirectToAction(nameof(Index));
                 }
 
@@ -72,8 +72,11 @@ namespace LinkBuyMvc.Controllers
                 }
 
                 if (resultado > 0)
+                {
+                    TempData["CategoriaMsgSucesso"] = "Categoria excluida com sucesso!";
                     return RedirectToAction(nameof(Index));
-
+                }
+                    
                 return View(categoria);
 
             }
@@ -118,8 +121,11 @@ namespace LinkBuyMvc.Controllers
                 resultado = await _service.UpdateCategoriaAsync(categoria);
 
                 if (resultado > 0)
+                {
+                    TempData["CategoriaMsgSucesso"] = "Categoria editada com sucesso!";
                     return RedirectToAction(nameof(Index));
-
+                }
+                    
                 return View(categoria);
             }
 
