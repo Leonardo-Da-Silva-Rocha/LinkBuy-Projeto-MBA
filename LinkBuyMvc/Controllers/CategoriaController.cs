@@ -35,7 +35,10 @@ namespace LinkBuyMvc.Controllers
                 var result = await _service.CreateCategoriaAsync(categoria);
 
                 if (result > 0)
+                {
+                    TempData["CreateCategoria"] = "sucesso";
                     return RedirectToAction(nameof(Index));
+                }
 
                 return View(categoria);
             }

@@ -4,6 +4,20 @@
     ViewData["Title"] = "Index";
 }
 
+@if (TempData["CreateCategoria"] != null)
+{
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1100; margin-top:45px;">
+        <div id="Toast" class="toast align-items-center bg-success text-white border-0 show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000" data-bs-autohide="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Categoria Adicionada Com Sucesso!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+}
+
 <p>
     <a class="btn" style="background-color:#6a0dac; color:white" asp-action="Create">Nova Categoria</a>
 </p>
@@ -17,26 +31,34 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
                     @Html.DisplayFor(modelItem => item.Descricao)
-            </td>
-            <td>
+                </td>
+                <td>
                     <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">
                         <span><i class="fas fa-edit" style="margin-right: 5px;"></i></span>
                         Editar
-                    </a> 
+                    </a>
                     <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">
                         <span><i class="fas fa-eye" style="margin-right: 5px;"></i></span>
                         Detalhes
-                    </a> 
+                    </a>
                     <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">
                         <span><i class="fas fa-trash-alt" style="margin-right: 5px;"></i></span>
                         Excluir
                     </a>
-            </td>
-        </tr>
-}
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

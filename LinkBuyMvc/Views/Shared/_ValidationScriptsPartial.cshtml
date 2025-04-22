@@ -6,3 +6,11 @@
         $('#Documento').mask('000.000.000-00'); // Máscara de CPF
         });
 </script>
+
+<script>
+    const toastEl = document.getElementById('Toast');
+    if (toastEl) {
+        const toast = bootstrap.Toast.getOrCreateInstance(toastEl);
+        toast.show();
+    }
+</script>
