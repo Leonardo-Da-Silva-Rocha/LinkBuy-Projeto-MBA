@@ -4,62 +4,66 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="row justify-content-center">
+    <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="card  o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-5">
+                <h3 class="text-center" style="margin-bottom:25px; color:#6a0dac">Editar Produto</h3>
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <form asp-action="Edit" enctype="multipart/form-data" class="user">
 
-<h4>Produto</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            
-            <div class="form-group">
-                <img src="~/uploads/@Model.Imagem" class="produto-imagem" />
-            </div>
+                            <input type="hidden" asp-for="Id" />
 
-            <div class="form-group">
-                <label asp-for="Descricao" class="control-label"></label>
-                <input asp-for="Descricao" class="form-control" />
-                <span asp-validation-for="Descricao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Valor" class="control-label"></label>
-                <input asp-for="Valor" class="form-control" />
-                <span asp-validation-for="Valor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Estoque" class="control-label"></label>
-                <input asp-for="Estoque" class="form-control" />
-                <span asp-validation-for="Estoque" class="text-danger"></span>
-            </div>
-            <div class="input-group">
-                <label asp-for="ImagemUpload"></label>
-                <input asp-for="ImagemUpload" type="file" class="form-control" />
-                <span asp-validation-for="ImagemUpload" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Categoria" class="control-label"></label>
-                <select asp-for="CategoriaId" class="form-control" asp-items="ViewBag.CategoriaId"></select>
-                <span asp-validation-for="CategoriaId" class="text-danger"></span>
-            </div>
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <input type="hidden" asp-for="VendedorId" />
-            @* <div class="form-group">
-                <label asp-for="Vendedor" class="control-label"></label>
-                <select asp-for="VendedorId" class="form-control" asp-items="ViewBag.VendedorId"></select>
-                <span asp-validation-for="VendedorId" class="text-danger"></span>
-            </div> *@
-           
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                            <div class="form-group">
+
+                                <input asp-for="Descricao" class="form-control form-control-user" placeholder="Descrição" />
+                                <span asp-validation-for="Descricao" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+
+                                    <input asp-for="Valor" class="form-control form-control-user" placeholder="Valor" />
+                                    <span asp-validation-for="Valor" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-sm-6 mb-3">
+
+                                    <input asp-for="Estoque" class="form-control form-control-user" placeholder="Estoque" />
+                                    <span asp-validation-for="Estoque" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <input asp-for="ImagemUpload" type="file" class="form-control form-control-user-edit" />
+                                <span asp-validation-for="ImagemUpload" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+
+                                <select asp-for="CategoriaId" class="form-control form-control-user-edit" asp-items="ViewBag.CategoriaId"></select>
+                            </div>
+                            <input type="hidden" asp-for="VendedorId" />
+                            <div class="form-group text-center">
+                                <input type="submit" value="Editar Produto" class="btn btn-user btn-block" style="background-color:#6a0dac !important; color:white;" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<hr />
+
+<div class="user">
+    <a class="btn btn-user" style="background-color:#6a0dac !important; color:white;" asp-action="Index"> <span><i class="fas fa-arrow-left"></i></span>  Lista de produtos</a>
 </div>
 
 @section Scripts {

@@ -72,7 +72,11 @@ namespace LinkBuyMvc.Controllers
                     var result = await _service.CreateProdutoAsync(produto);
 
                     if (result > 0)
+                    {
+                        TempData["ProdutoMsgSucesso"] = "Produto criado com sucesso!";
                         return RedirectToAction(nameof(Index));
+                    }
+                        
                 }
                 catch (Exception ex)
                 {
@@ -119,7 +123,12 @@ namespace LinkBuyMvc.Controllers
                 await _service.CreateImage(produto.ImagemUpload, produto.Imagem);
 
                 var result = await _service.EditProdutoAsync(produto);
-                return RedirectToAction(nameof(Index));
+                if (result > 0)
+                {
+                    TempData["ProdutoMsgSucesso"] = "Produto editado com sucesso!";
+                    return RedirectToAction(nameof(Index));
+                }
+               
             }
             
             return View(produto);
@@ -153,6 +162,7 @@ namespace LinkBuyMvc.Controllers
             if (result > 0)
             {
                 await _service.DeleteImage(produto.Imagem);
+                TempData["ProdutoMsgSucesso"] = "Produto excluido com sucesso!";
                 return RedirectToAction(nameof(Index));
             }
 
