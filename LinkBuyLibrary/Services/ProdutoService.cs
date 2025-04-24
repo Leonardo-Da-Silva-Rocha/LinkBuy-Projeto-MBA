@@ -3,6 +3,7 @@ using LinkBuyLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 
+
 namespace LinkBuyLibrary.Services
 {
     public class ProdutoService
@@ -41,6 +42,11 @@ namespace LinkBuyLibrary.Services
             {
                 throw new Exception("Ocorreu um erro ao salvar a imagem");
             }
+        }
+
+        public async Task<IEnumerable<Produto>> GetAllProdutosByVendedor(int id)
+        {
+            return await _context.Produtos.Where(p => p.VendedorId == id).Include(p => p.Categoria).Include(p => p.Vendedor).AsNoTracking().ToListAsync();
         }
 
         public async Task<Produto?> GetDetalheProduto(int id)

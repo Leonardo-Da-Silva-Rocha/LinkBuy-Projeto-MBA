@@ -24,7 +24,12 @@
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                    
-                                    <input asp-for="Valor" class="form-control form-control-user" placeholder="Valor" />
+                                    <input asp-for="Valor"
+                                           class="form-control form-control-user"
+                                           placeholder="Valor"
+                                           type="text"
+                                           inputmode="decimal"
+                                           pattern="^(\d+([.,]\d{1,2})?)$" />
                                     <span asp-validation-for="Valor" class="text-danger"></span>
                                 </div>
 

@@ -4,36 +4,46 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="container-fluid">
-    <div class="row">
-        @{
-            foreach (var item in Model)
-            {
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card shadow-sm border-0 rounded-3 h-100">
-                        <img src="~/uploads/@item.Imagem" alt="@item.Descricao" class="card-img-top" style="height: 200px; object-fit: cover;">
+@if (Model == null || Model.Count() <= 0)
+{
+    <div class="alert alert-success" role="alert">
+        Nenhum produto disponivel para vizualização!
+    </div>
 
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title fw-bold">@item.Descricao</h5>
+}
+else
+{
+    <div class="container-fluid">
+        <div class="row">
+            @{
+                foreach (var item in Model)
+                {
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card shadow-sm border-0 rounded-3 h-100">
+                            <img src="~/uploads/@item.Imagem" alt="@item.Descricao" class="card-img-top"
+                                 style="height: 200px; object-fit: contain; background-color: white;">
 
-                            <p class="card-text mb-1">
-                                <small class="text-muted">Categoria:</small>
-                                <span class="text-dark">@item.Categoria?.Descricao</span>
-                            </p>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title fw-bold">@item.Descricao</h5>
 
-                            <p class="card-text mb-1">
-                                <small class="text-muted">Vendedor:</small>
-                                <span class="text-dark">@item.Vendedor?.Nome</span>
-                            </p>
+                                <p class="card-text mb-1">
+                                    <small class="text-muted">Categoria:</small>
+                                    <span class="text-dark">@item.Categoria?.Descricao</span>
+                                </p>
 
-                            <div class="mt-auto">
-                                <p class="h5 text-success fw-bold" style="color:#5B4ABC;">R$ @String.Format("{0:N2}", item.Valor)</p>
+                                <p class="card-text mb-1">
+                                    <small class="text-muted">Vendedor:</small>
+                                    <span class="text-dark">@item.Vendedor?.Nome</span>
+                                </p>
+
+                                <div class="mt-auto">
+                                    <p class="h5 text-success fw-bold" style="color:#5B4ABC;">R$ @String.Format("{0:N2}", item.Valor)</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
+                }
             }
-        }
+        </div>
     </div>
-</div>
+}

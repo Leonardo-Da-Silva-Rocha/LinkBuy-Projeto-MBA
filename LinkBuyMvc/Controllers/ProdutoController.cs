@@ -23,7 +23,11 @@ namespace LinkBuyMvc.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _service.GetAllProdutos());
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var vendedor = await _vendedorService.GetVendedorByIdLoginAsync(userIdString);
+
+            return View(await _service.GetAllProdutosByVendedor(vendedor.Id));
         }
 
 
