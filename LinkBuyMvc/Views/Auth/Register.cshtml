@@ -1,69 +1,68 @@
 ﻿@model LinkBuyLibrary.Models.RegisterViewModel
 
+<div class="row justify-content-center">
 
+    <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
 
-<div class="container">
+                <div class="row">
+                    <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                        <img src="~/uploads/comprasLogin.png" alt="Login Imagem" style="height:100%;" class="img-fluid" />
+                    </div>
+                    <div class="col-lg-6">
 
-    <div class="card o-hidden border-0 shadow-lg my-5">
-        <div class="card-body p-0">
-            <!-- Nested Row within Card Body -->
-            <div class="row">
-                <div class="col-lg-6 d-none d-lg-block bg-login-image">
-                    <img src="~/uploads/comprasLogin.png" alt="Login Imagem" class="img-fluid" />
-                </div>
-                <div class="col-lg-6">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4  mb-4" style="color: #5B4ABC;">Crie uma conta!</h1>
+                            </div>
 
-                    <div class="p-5">
-                        <div class="text-center">
-                            <h1 class="h4  mb-4" style="color: #5B4ABC;">Crie uma conta!</h1>
+                            <form asp-action="Register" class="user">
+
+                                <div class="form-group row">
+                                    <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <input asp-for="Nome" class="form-control form-control-user" placeholder="Nome" />
+                                        <span asp-validation-for="Nome" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input asp-for="Email" class="form-control form-control-user" placeholder="Email" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+
+                                </div>
+
+                                <div class="form-group row">
+
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input asp-for="Password" class="form-control form-control-user" placeholder="Senha" />
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <input asp-for="ConfirmPassword" class="form-control form-control-user" placeholder="Confirme a senha" />
+                                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                    </div>
+
+                                </div>
+
+                                <input type="submit" value="Registrar-se" class="btn btn-primary btn-user btn-block" />
+
+                            </form>
+
+                            <hr>
+
+                            <div class="text-center">
+                                <a class="small" style="color: #5B4ABC;" asp-area="" asp-controller="Auth" asp-action="Login">Já tem uma conta? Login!</a>
+                            </div>
+
                         </div>
-
-                        <form asp-action="Register" class="user">
-
-                            <div class="form-group row">
-                                <div class="col-sm-12 mb-3 mb-sm-0">
-                                    <input asp-for="Nome" class="form-control form-control-user" placeholder="Nome" />
-                                    <span asp-validation-for="Nome" class="text-danger"></span>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <input asp-for="Email" class="form-control form-control-user" placeholder="Email" />
-                                <span asp-validation-for="Email" class="text-danger"></span>
-
-                            </div>
-
-                            <div class="form-group row">
-
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input asp-for="Password" class="form-control form-control-user" placeholder="Senha" />
-                                    <span asp-validation-for="Password" class="text-danger"></span>
-
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <input asp-for="ConfirmPassword" class="form-control form-control-user" placeholder="Confirme a senha" />
-                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                                </div>
-
-                            </div>
-
-                            <input type="submit" value="Registrar-se" class="btn btn-primary btn-user btn-block" />
-
-                        </form>
-
-                        <hr>
-
-                        <div class="text-center">
-                            <a class="small" style="color: #5B4ABC;" asp-area="" asp-controller="Auth" asp-action="Login">Já tem uma conta? Login!</a>
-                        </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 @section Scripts {

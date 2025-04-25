@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LinkBuyMvc.Controllers
 {
+    [Route("conta")]
     public class AuthController : Controller
     {
         protected readonly AuthService _authService;
@@ -14,14 +15,14 @@ namespace LinkBuyMvc.Controllers
             _authService = authService;
         }
 
-        [HttpGet]
+        [HttpGet("entrar")]
         [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("entrar")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel login)
@@ -40,7 +41,7 @@ namespace LinkBuyMvc.Controllers
             return View(login);
         }
 
-        [HttpPost]
+        [HttpPost("criar-conta")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel register)
@@ -59,6 +60,7 @@ namespace LinkBuyMvc.Controllers
             return View(register);
         }
 
+        [HttpGet("criar-conta")]
         public IActionResult Register()
         {
             return View();
