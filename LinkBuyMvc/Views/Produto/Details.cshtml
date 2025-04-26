@@ -47,7 +47,7 @@
                                             @Model.Descricao
                                         </td>
                                         <td>
-                                            @Model.Valor
+                                            @Model.Valor.ToString("C", new System.Globalization.CultureInfo("pt-BR"))
                                         </td>
                                         <td>
                                             @Model.Estoque

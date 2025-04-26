@@ -15,7 +15,7 @@ namespace LinkBuyLibrary.Models
 
         [Required(ErrorMessage = "O campo valor é obrigatório.")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Informe um valor válido. EX: 000.00")]
-        
+
         public decimal Valor { get; set; }
 
         [Required(ErrorMessage = "O campo de estoque é obrigatorio")]

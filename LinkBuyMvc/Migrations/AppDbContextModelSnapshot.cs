@@ -26,7 +26,7 @@ namespace LinkBuyMvc.Migrations
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("VARCHAR(50)");
 
                     b.HasKey("Id");
 
@@ -45,7 +45,7 @@ namespace LinkBuyMvc.Migrations
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("VARCHAT(50)");
 
                     b.Property<int>("Estoque")
                         .HasColumnType("INTEGER");
@@ -75,7 +75,7 @@ namespace LinkBuyMvc.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DataCadastro")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATETIME");
 
                     b.Property<string>("FkLogin")
                         .IsRequired()
@@ -84,7 +84,7 @@ namespace LinkBuyMvc.Migrations
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("VARCHAR(50)");
 
                     b.HasKey("Id");
 

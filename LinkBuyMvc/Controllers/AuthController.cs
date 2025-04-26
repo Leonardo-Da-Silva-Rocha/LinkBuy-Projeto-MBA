@@ -34,7 +34,7 @@ namespace LinkBuyMvc.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Categoria");
+                return RedirectToAction("Index", "Produto");
             }
 
             ModelState.AddModelError("", "Usuário ou senha inválidos");

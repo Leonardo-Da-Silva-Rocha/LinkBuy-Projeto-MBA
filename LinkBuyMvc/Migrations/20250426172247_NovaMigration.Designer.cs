@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LinkBuyMvc.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250410011552_VendedorCampoFkAdd")]
-    partial class VendedorCampoFkAdd
+    [Migration("20250426172247_NovaMigration")]
+    partial class NovaMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,7 +29,7 @@ namespace LinkBuyMvc.Migrations
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("VARCHAR(50)");
 
                     b.HasKey("Id");
 
@@ -48,13 +48,12 @@ namespace LinkBuyMvc.Migrations
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("VARCHAT(50)");
 
                     b.Property<int>("Estoque")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Imagem")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Valor")
@@ -79,11 +78,7 @@ namespace LinkBuyMvc.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DataCadastro")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Documento")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATETIME");
 
                     b.Property<string>("FkLogin")
                         .IsRequired()
@@ -92,11 +87,7 @@ namespace LinkBuyMvc.Migrations
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Telefone")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("VARCHAR(50)");
 
                     b.HasKey("Id");
 
@@ -300,7 +291,7 @@ namespace LinkBuyMvc.Migrations
                     b.HasOne("LinkBuyLibrary.Models.Categoria", "Categoria")
                         .WithMany("Produtos")
                         .HasForeignKey("CategoriaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("LinkBuyLibrary.Models.Vendedor", "Vendedor")

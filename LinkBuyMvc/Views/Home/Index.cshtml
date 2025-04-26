@@ -37,7 +37,9 @@ else
                                 </p>
 
                                 <div class="mt-auto">
-                                    <p class="h5 text-success fw-bold" style="color:#5B4ABC;">R$ @String.Format("{0:N2}", item.Valor)</p>
+                                    <p class="h5 text-success fw-bold" style="color:#5B4ABC;">
+                                        R$ @item.Valor.ToString("N2", new System.Globalization.CultureInfo("pt-BR"))
+                                    </p>
                                 </div>
                             </div>
                         </div>

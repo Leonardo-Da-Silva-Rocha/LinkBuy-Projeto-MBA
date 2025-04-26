@@ -1,4 +1,5 @@
-﻿using LinkBuyLibrary.Models;
+﻿using LinkBuyLibrary.Configuration.OnModel;
+using LinkBuyLibrary.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,24 +11,21 @@ namespace LinkBuyLibrary.Data
         {
         }
 
+
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Vendedor> Vendedores { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.ApplyConfiguration(new ProdutoConfiguration());
 
-            modelBuilder.Entity<Produto>(entity =>
-            {
-                entity.Property(p => p.Valor).HasColumnType("DECIMAL(5,2)");
+            modelBuilder.ApplyConfiguration(new CategoriaConfiguration());
 
-                entity.HasOne(p => p.Categoria)
-                      .WithMany(c => c.Produtos)
-                      .HasForeignKey(p => p.CategoriaId)
-                      .OnDelete(DeleteBehavior.Restrict);
-            });
-
+            modelBuilder.ApplyConfiguration(new VendedorConfiguration());
         }
     }
 }

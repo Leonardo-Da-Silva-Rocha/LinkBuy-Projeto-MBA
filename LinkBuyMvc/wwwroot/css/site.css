@@ -11806,14 +11806,15 @@ form.user .form-control-user {
         outline: none;
     }
 
-        
-      
+
+
 
 form.user .btn-user {
     font-size: 0.8rem;
     border-radius: 10rem;
     padding: 0.75rem 1rem;
-    background-color: #5B4ABC;
+    background-color: #6a0dac;
+    border-color: #6a0dac;
     color: white;
 }
 
