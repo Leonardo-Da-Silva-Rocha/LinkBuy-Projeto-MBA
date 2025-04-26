@@ -8,6 +8,7 @@ using System.Security.Claims;
 namespace LinkBuyMvc.Controllers
 {
     [Authorize]
+    [Route("produto")]
     public class ProdutoController : Controller
     {
         private readonly ProdutoService _service;
@@ -21,6 +22,7 @@ namespace LinkBuyMvc.Controllers
             _vendedorService = vendedorService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -30,7 +32,7 @@ namespace LinkBuyMvc.Controllers
             return View(await _service.GetAllProdutosByVendedor(vendedor.Id));
         }
 
-
+        [HttpGet("gerenciar/detalhes")]
         public async Task<IActionResult> Details(int id)
         {
             var produto = await _service.GetDetalheProduto(id);
@@ -43,14 +45,14 @@ namespace LinkBuyMvc.Controllers
             return View(produto);
         }
 
-
+        [HttpGet("gerenciar/novo-produto")]
         public async Task<IActionResult> Create()
         {
             ViewData["CategoriaId"] = new SelectList(await _serviceCategoria.GetAllCategoriasAsync(), "Id", "Descricao");
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("gerenciar/novo-produto")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Descricao,Valor,Estoque,ImagemUpload,CategoriaId")] Produto produto)
         {
@@ -92,6 +94,7 @@ namespace LinkBuyMvc.Controllers
             return View(produto);
         }
 
+        [HttpGet("gerenciar/editar-produto")]
         public async Task<IActionResult> Edit(int id)
         {
             var produto = await _service.GetDetalheProduto(id);
@@ -107,7 +110,7 @@ namespace LinkBuyMvc.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("gerenciar/editar-produto")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Descricao,Valor,Estoque,ImagemUpload,CategoriaId,VendedorId")] Produto produto)
         {
@@ -137,6 +140,7 @@ namespace LinkBuyMvc.Controllers
             return View(produto);
         }
 
+        [HttpGet("gerenciar/excluir-produto")]
         public async Task<IActionResult> Delete(int id)
         {
             var produto = await _service.GetDetalheProduto(id);
@@ -149,7 +153,7 @@ namespace LinkBuyMvc.Controllers
             return View(produto);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost("gerenciar/excluir-produto"), ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

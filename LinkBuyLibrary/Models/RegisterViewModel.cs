@@ -5,7 +5,8 @@ namespace LinkBuyLibrary.Models
     public class RegisterViewModel
     {
         [Required(ErrorMessage = "O email é obrigatorio.")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "Entre com um email valido")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Entre com um email válido")]
+        [EmailAddress(ErrorMessage = "Entre com um email válido")]
         public string? Email { get; set; }
 
 

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace LinkBuyMvc.Controllers
 {
     [Authorize]
+    [Route("categoria")]
     public class CategoriaController : Controller
     {
         private readonly CategoriaService _service;
@@ -16,17 +17,19 @@ namespace LinkBuyMvc.Controllers
             _service = service;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             return View(await _service.GetAllCategoriasAsync());
         }
 
+        [HttpGet("gerenciar/nova-categoria")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("gerenciar/nova-categoria")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Descricao")] Categoria categoria)
         {
@@ -45,6 +48,7 @@ namespace LinkBuyMvc.Controllers
             return View(categoria);
         }
 
+        [HttpGet("gerenciar/deletar-categoria")]
         public async Task<IActionResult> Delete(int id)
         {
 
@@ -58,7 +62,7 @@ namespace LinkBuyMvc.Controllers
             return View(categoria);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost("gerenciar/deletar-categoria"), ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -93,6 +97,7 @@ namespace LinkBuyMvc.Controllers
 
         }
 
+        [HttpGet("gerenciar/editar-categoria")]
         public async Task<IActionResult> Edit(int id)
         {
             var categoria = await _service.GetCategoriasByIdAsync(id);
@@ -105,7 +110,7 @@ namespace LinkBuyMvc.Controllers
             return View(categoria);
         }
 
-        [HttpPost]
+        [HttpPost("gerenciar/editar-categoria")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Descricao")] Categoria categoria)
         {
@@ -132,6 +137,7 @@ namespace LinkBuyMvc.Controllers
             return View(categoria);
         }
 
+        [HttpGet("gerenciar/detalhes")]
         public async Task<IActionResult> Details(int id)
         {
             var categoria = await _service.GetCategoriasByIdAsync(id);
