@@ -43,7 +43,7 @@ namespace LinkBuyLibrary.Services
                     DataCadastro = DateTime.Now,
                     Nome = register.Nome,
                     FkLogin = user.Id,
-                    
+
                 };
                 await _dbContext.Vendedores.AddAsync(vendedor);
 
@@ -62,17 +62,11 @@ namespace LinkBuyLibrary.Services
         public async Task<string> GerarJwt(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
-            var roles = await _userManager.GetRolesAsync(user);
 
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.UserName)
             };
-
-            foreach (var role in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSettings.Segredo);
@@ -80,17 +74,16 @@ namespace LinkBuyLibrary.Services
             var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Issuer = _jwtSettings.Audiencia,
+                Issuer = _jwtSettings.Emissor,
                 Audience = _jwtSettings.Audiencia,
-                Expires = DateTime.Now.AddHours(_jwtSettings.ExpiracaoHoras),
+                Expires = DateTime.UtcNow.AddHours(_jwtSettings.ExpiracaoHoras),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature
-                    )
+                )
             });
 
-            var encodedToken = tokenHandler.WriteToken(token);
-            return encodedToken;
+            return tokenHandler.WriteToken(token);
         }
 
         public async Task Logout()

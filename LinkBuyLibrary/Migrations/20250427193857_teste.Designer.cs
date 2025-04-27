@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace LinkBuyMvc.Migrations
+namespace LinkBuyLibrary.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250426172247_NovaMigration")]
-    partial class NovaMigration
+    [Migration("20250427193857_teste")]
+    partial class teste
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -23,8 +23,4 @@
     <ProjectReference Include="..\LinkBuyLibrary\LinkBuyLibrary.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

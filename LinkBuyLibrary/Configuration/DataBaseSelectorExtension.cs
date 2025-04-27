@@ -16,7 +16,7 @@ namespace LinkBuyMvc.Configuration
                 SQLitePCL.Batteries.Init();
                 builder.Services.AddDbContext<AppDbContext>(opt =>
                 {
-                    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnectionLite"), b => b.MigrationsAssembly("LinkBuyMvc"));
+                    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnectionLite"), b => b.MigrationsAssembly("LinkBuyLibrary"));
                 });
               
             }
@@ -24,7 +24,7 @@ namespace LinkBuyMvc.Configuration
             {
                 builder.Services.AddDbContext<AppDbContext>(opt =>
                 {
-                    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("LinkBuyMvc"));
+                    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("LinkBuyLibrary"));
                 });
 
             }
