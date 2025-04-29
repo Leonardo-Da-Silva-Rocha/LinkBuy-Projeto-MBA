@@ -21,7 +21,7 @@ namespace PrimeiraApi.Controllers
             _authService = authService;
         }
 
-        [HttpPost("registrar")]
+        [HttpPost("criar-conta")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Registrar(RegisterViewModel registerUser)
@@ -38,7 +38,7 @@ namespace PrimeiraApi.Controllers
             return Problem("Falha ao registrar o usuário");
         }
 
-        [HttpPost("login")]
+        [HttpPost("autenticar")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Login(LoginViewModel loginUser)
