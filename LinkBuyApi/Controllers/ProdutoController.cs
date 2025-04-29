@@ -2,6 +2,7 @@
 using LinkBuyLibrary.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace LinkBuyApi.Controllers
@@ -59,5 +60,37 @@ namespace LinkBuyApi.Controllers
             return BadRequest("ocorreu um erro ao criar o produto");
         }
 
+
+        [HttpDelete("deletar/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var produto = await _service.GetDetalheProduto(id);
+
+                if (produto == null)
+                {
+
+                    return NotFound("Produto não encontrado");
+                }
+
+                var result = await _service.DeleteProdutoAsync(produto);
+
+                if (result > 0)
+                {
+                    await _service.DeleteImage(produto.Imagem);
+                    return NoContent();
+                }
+
+                return BadRequest("Ocorreu um erro ao deletar o produto");
+            }
+            catch
+            {
+                return BadRequest("Ocorreu um erro ao deletar o produto");
+            }
+        }
     }
 }

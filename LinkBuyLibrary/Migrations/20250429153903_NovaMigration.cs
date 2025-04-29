@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LinkBuyLibrary.Migrations
 {
     /// <inheritdoc />
-    public partial class teste : Migration
+    public partial class NovaMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
