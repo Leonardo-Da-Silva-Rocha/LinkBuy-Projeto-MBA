@@ -13,11 +13,13 @@ namespace LinkBuyApi.Controllers
     {
         private readonly ProdutoService _service;
         private readonly VendedorService _vendedorService;
+        private readonly CategoriaService _categoriaService;
 
-        public ProdutoController(ProdutoService service, VendedorService vendedorService)
+        public ProdutoController(ProdutoService service, VendedorService vendedorService, CategoriaService categoriaService)
         {
             _service = service;
             _vendedorService = vendedorService;
+            _categoriaService = categoriaService;
         }
 
         [HttpGet("todos-produtos")]
@@ -45,13 +47,12 @@ namespace LinkBuyApi.Controllers
         }
 
 
-
         [HttpPost("novo-produto")]
         [ProducesResponseType(typeof(Produto), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Post([FromForm] Produto produto)
+        public async Task<IActionResult> Post([FromForm] ProdutoInsert produto)
         {
 
             if (!ModelState.IsValid) return ValidationProblem(new ValidationProblemDetails(ModelState)
@@ -59,26 +60,34 @@ namespace LinkBuyApi.Controllers
                 Title = "Um ou mais erros de validação ocorreram!"
             });
 
-            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var vendedor = await _vendedorService.GetVendedorByIdAsync(produto.VendedorId);
 
-            var vendedor = await _vendedorService.GetVendedorByIdLoginAsync(userIdString);
+            if (vendedor == null) return NotFound("Vendedor não encontrado");
 
-            if (vendedor == null) return NotFound();
+            var categoria = await _categoriaService.GetCategoriasByIdAsync(produto.CategoriaId);
 
-            produto.Vendedor = vendedor;
+            if (categoria == null) return NotFound("Categoria não encontrada");
 
             string nomeArquivo = Guid.NewGuid().ToString() + Path.GetExtension(produto.ImagemUpload.FileName);
 
             await _service.CreateImage(produto.ImagemUpload, nomeArquivo);
 
-            produto.Imagem = nomeArquivo;
+            Produto inserirProduto = new Produto
+            {
+                CategoriaId = produto.CategoriaId,
+                VendedorId = produto.VendedorId,
+                Descricao = produto.Descricao,
+                Estoque = produto.Estoque,
+                Imagem = nomeArquivo,
+                Valor = produto.Valor
+            };
 
-            var result = await _service.CreateProdutoAsync(produto);
+            var result = await _service.CreateProdutoAsync(inserirProduto);
 
             if (result > 0)
             {
 
-                return Created();
+                return CreatedAtAction("Get", new { id = inserirProduto.Id }, inserirProduto);
             }
 
             return BadRequest("ocorreu um erro ao criar o produto");

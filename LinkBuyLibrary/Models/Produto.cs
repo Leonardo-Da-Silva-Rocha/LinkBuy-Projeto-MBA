@@ -30,6 +30,7 @@ namespace LinkBuyLibrary.Models
         public IFormFile? ImagemUpload { get; set; }
 
         [SwaggerIgnore]
+        [JsonIgnore]
         public string? Imagem { get; set; }
 
         public int CategoriaId { get; set; }

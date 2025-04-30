@@ -26,7 +26,7 @@ namespace LinkBuyLibrary.Services
 
         public async Task<Categoria?> GetCategoriasByIdAsync(int id)
         {
-            return await _dbContext.Categorias.FindAsync(id);
+            return await _dbContext.Categorias.FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<int> DeleteCategoriaAsync(Categoria categoria)
