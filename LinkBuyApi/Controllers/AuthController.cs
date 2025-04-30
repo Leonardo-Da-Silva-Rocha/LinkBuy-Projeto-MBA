@@ -1,12 +1,6 @@
 ﻿using LinkBuyLibrary.Models;
 using LinkBuyLibrary.Services;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 
 namespace PrimeiraApi.Controllers
@@ -23,10 +17,12 @@ namespace PrimeiraApi.Controllers
 
         [HttpPost("criar-conta")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Registrar(RegisterViewModel registerUser)
         {
             if (!ModelState.IsValid) return ValidationProblem(ModelState);
+
+            if(await _authService.CheckUserExists(registerUser.Email)) return BadRequest("Usuario já cadastrado com este email.");
 
             var result = await _authService.Register(registerUser);
 
@@ -35,7 +31,7 @@ namespace PrimeiraApi.Controllers
                 return Ok(await _authService.GerarJwt(registerUser.Email));
             }
 
-            return Problem("Falha ao registrar o usuário");
+            return Problem("Falha ao registrar o usuário, verifique se o email esta correto e se a senha tem no minimo 5 caracteres");
         }
 
         [HttpPost("autenticar")]

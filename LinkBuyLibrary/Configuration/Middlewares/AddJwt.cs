@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -16,7 +17,17 @@ namespace LinkBuyLibrary.Configuration.Middlewares
     {
         public static void AddConfigIdentity(this WebApplicationBuilder builder)
         {
-            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                // Configuração das regras de senha
+                options.Password.RequireDigit = false;  // Exige pelo menos um número
+                options.Password.RequireLowercase = false;  // Exige pelo menos uma letra minúscula
+                options.Password.RequireUppercase = false;  // Exige pelo menos uma letra maiúscula
+                options.Password.RequireNonAlphanumeric = false;  // Exige pelo menos um caractere especial
+                options.Password.RequiredLength = 5;  // Tamanho mínimo de 8 caracteres
+                options.Password.RequiredUniqueChars = 0;  // Pelo menos 1 caractere único
+                
+            })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
         }
@@ -35,7 +46,6 @@ namespace LinkBuyLibrary.Configuration.Middlewares
 
         public static void AddConfigJwtAPI(this WebApplicationBuilder builder)
         {
-
 
             var jwtSettingsSection = builder.Configuration.GetSection("JwtSettings");
             builder.Services.Configure<JwtSettings>(jwtSettingsSection);
@@ -93,6 +103,11 @@ namespace LinkBuyLibrary.Configuration.Middlewares
             }
         });
             });
+        }
+
+        public static void AddValidatePassword(this WebApplicationBuilder builder)
+        {
+
         }
 
     }

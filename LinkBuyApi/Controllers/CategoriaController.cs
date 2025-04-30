@@ -45,6 +45,7 @@ namespace LinkBuyApi.Controllers
         [HttpPost("nova-categoria")]
         [ProducesResponseType(typeof(Categoria), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(Categoria), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Categoria), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Post([Bind("Descricao")] Categoria categoria)
         {
             if (!ModelState.IsValid) return ValidationProblem(new ValidationProblemDetails(ModelState)
@@ -101,6 +102,7 @@ namespace LinkBuyApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Put(int id, [Bind("Id,Descricao")] Categoria categoria)
         {
             if (!ModelState.IsValid) return ValidationProblem(new ValidationProblemDetails(ModelState)

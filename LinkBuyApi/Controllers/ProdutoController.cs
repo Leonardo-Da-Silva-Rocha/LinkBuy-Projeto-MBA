@@ -12,22 +12,46 @@ namespace LinkBuyApi.Controllers
     public class ProdutoController : ControllerBase
     {
         private readonly ProdutoService _service;
-        private readonly CategoriaService _serviceCategoria;
         private readonly VendedorService _vendedorService;
 
-        public ProdutoController(ProdutoService service, CategoriaService serviceCategoria, VendedorService vendedorService)
+        public ProdutoController(ProdutoService service, VendedorService vendedorService)
         {
             _service = service;
-            _serviceCategoria = serviceCategoria;
             _vendedorService = vendedorService;
         }
+
+        [HttpGet("todos-produtos")]
+        [ProducesResponseType(typeof(Produto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<Categoria>> GetAllProdutos()
+        {
+            var produto = await _service.GetAllProdutos();
+
+            if (produto is null) return NotFound();
+
+            return Ok(produto);
+        }
+
+        [HttpGet("{id:int}")]
+        [ProducesResponseType(typeof(Produto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<Categoria>> Get(int id)
+        {
+            var produto = await _service.GetDetalheProduto(id);
+
+            if (produto is null) return NotFound();
+
+            return Ok(produto);
+        }
+
 
 
         [HttpPost("novo-produto")]
         [ProducesResponseType(typeof(Produto), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Post([Bind("Id,Descricao,Valor,Estoque,ImagemUpload,CategoriaId")] Produto produto)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Post([FromForm] Produto produto)
         {
 
             if (!ModelState.IsValid) return ValidationProblem(new ValidationProblemDetails(ModelState)

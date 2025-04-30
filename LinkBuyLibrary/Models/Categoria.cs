@@ -1,5 +1,6 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace LinkBuyLibrary.Models
 {
@@ -12,6 +13,7 @@ namespace LinkBuyLibrary.Models
         [StringLength(maximumLength: 50, MinimumLength = 5, ErrorMessage = "O campo descrição precisa ter no minimo 5 caracteres e no maximo 50.")]
         public string? Descricao { get; set; }
 
+        [JsonIgnore]
         public IEnumerable<Produto>? Produtos { get; set; }
     }
 }

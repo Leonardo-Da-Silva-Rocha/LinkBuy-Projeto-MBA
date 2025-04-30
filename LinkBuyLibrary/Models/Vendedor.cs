@@ -1,5 +1,5 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace LinkBuyLibrary.Models
 {
@@ -17,6 +17,7 @@ namespace LinkBuyLibrary.Models
         [Required(ErrorMessage = "O campo data de cadastro é obrigatorio")]
         public DateTime DataCadastro { get; set; }
 
+        [JsonIgnore]
         public IEnumerable <Produto>? Produtos { get; set; }
     }
 }

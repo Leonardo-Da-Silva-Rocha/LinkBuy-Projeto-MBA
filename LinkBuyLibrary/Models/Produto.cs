@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace LinkBuyLibrary.Models
 {
     public class Produto
     {
         [Key]
+        [SwaggerIgnore]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "O produto precida ter uma descrição.")]
@@ -26,12 +29,17 @@ namespace LinkBuyLibrary.Models
         [Required(ErrorMessage = "A imagem do produto é obrigatória")]
         public IFormFile? ImagemUpload { get; set; }
 
+        [SwaggerIgnore]
         public string? Imagem { get; set; }
 
         public int CategoriaId { get; set; }
+        
+        [JsonIgnore]
         public Categoria? Categoria { get; set; }
 
         public int VendedorId { get; set; }
+
+        [JsonIgnore]
         public Vendedor? Vendedor { get; set; }
 
 

@@ -59,6 +59,15 @@ namespace LinkBuyLibrary.Services
             return result;
         }
 
+        public async Task<bool> CheckUserExists(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user is null) return false;
+
+            return true;
+        }
+
         public async Task<string> GerarJwt(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
