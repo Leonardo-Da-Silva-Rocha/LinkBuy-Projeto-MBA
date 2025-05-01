@@ -22,7 +22,7 @@ namespace LinkBuyLibrary.Models
         public decimal Valor { get; set; }
 
         [Required(ErrorMessage = "O campo de estoque é obrigatorio")]
-        [Range(1,9999, ErrorMessage = "O campo deve contter um valor entre 1 e 9999")]
+        [Range(1,9999, ErrorMessage = "O campo deve conter um valor entre 1 e 9999")]
         public int Estoque { get; set; }
 
         [NotMapped]

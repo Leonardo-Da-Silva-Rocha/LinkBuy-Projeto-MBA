@@ -53,6 +53,11 @@ namespace LinkBuyLibrary.Services
             return await _context.Produtos.Include(p => p.Categoria).Include(p => p.Vendedor).AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
         }
 
+        public async Task<IEnumerable<Produto>> GetProdutoByCategoria(int CategoriaId)
+        {
+            return await _context.Produtos.Where(p => p.CategoriaId == CategoriaId).Include(p => p.Categoria).Include(p => p.Vendedor).AsNoTracking().ToListAsync();
+        }
+
         public async Task<int> CreateProdutoAsync(Produto produto)
         {
             await _context.Produtos.AddAsync(produto);

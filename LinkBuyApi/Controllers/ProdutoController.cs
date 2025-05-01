@@ -1,9 +1,6 @@
 ﻿using LinkBuyLibrary.Models;
 using LinkBuyLibrary.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 
 namespace LinkBuyApi.Controllers
 {
@@ -42,6 +39,18 @@ namespace LinkBuyApi.Controllers
             var produto = await _service.GetDetalheProduto(id);
 
             if (produto is null) return NotFound();
+
+            return Ok(produto);
+        }
+
+        [HttpGet("buscar-produto/{CategoriaId:int}")]
+        [ProducesResponseType(typeof(Produto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<Categoria>> GetProdutoByCategoria(int CategoriaId)
+        {
+            var produto = await _service.GetProdutoByCategoria(CategoriaId);
+
+            if (produto is null || produto.Count() <= 0) return NotFound("Nenhum produto encontrado com a categoria infomada");
 
             return Ok(produto);
         }
@@ -139,6 +148,14 @@ namespace LinkBuyApi.Controllers
             {
                 Title = "Um ou mais erros de validação ocorreram!"
             });
+
+            var vendedor = await _vendedorService.GetVendedorByIdAsync(produtoInsert.VendedorId);
+
+            if (vendedor == null) return NotFound("Vendedor não encontrado");
+
+            var categoria = await _categoriaService.GetCategoriasByIdAsync(produtoInsert.CategoriaId);
+
+            if (categoria == null) return NotFound("Categoria não encontrada");
 
             var produtoEdit = await _service.GetDetalheProduto(id);
 
