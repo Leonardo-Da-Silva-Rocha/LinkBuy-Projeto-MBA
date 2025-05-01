@@ -1,5 +1,6 @@
 using LinkBuyLibrary.Configuration.Middlewares;
 using LinkBuyMvc.Configuration;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,9 @@ builder.AddConfigSwaggerAPI();
 
 var app = builder.Build();
 
+var cultureInfo = new CultureInfo("en-US");
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
 if (app.Environment.IsDevelopment())
 {

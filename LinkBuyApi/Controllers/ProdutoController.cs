@@ -125,5 +125,50 @@ namespace LinkBuyApi.Controllers
                 return BadRequest("Ocorreu um erro ao deletar o produto");
             }
         }
+
+
+        [HttpPut("editar-produto/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Put(int id, [FromForm] ProdutoInsert produtoInsert)
+        {
+
+            if (!ModelState.IsValid) return ValidationProblem(new ValidationProblemDetails(ModelState)
+            {
+                Title = "Um ou mais erros de validação ocorreram!"
+            });
+
+            var produtoEdit = await _service.GetDetalheProduto(id);
+
+            if (produtoEdit == null) return NotFound("Produto não encontrado");
+
+            await _service.DeleteImage(produtoEdit.Imagem);
+
+            string nomeArquivo = Guid.NewGuid().ToString() + Path.GetExtension(produtoInsert.ImagemUpload.FileName);
+
+            await _service.CreateImage(produtoInsert.ImagemUpload, nomeArquivo);
+
+            var produto = new Produto()
+            {
+                Id = id,
+                Descricao = produtoInsert.Descricao,
+                Estoque = produtoInsert.Estoque,
+                Valor = produtoInsert.Valor,
+                Imagem = nomeArquivo,
+                VendedorId = produtoInsert.VendedorId,
+                CategoriaId = produtoInsert.CategoriaId,
+            };
+
+            var result = await _service.EditProdutoAsync(produto);
+
+            if (result > 0)
+            {
+                return NoContent();
+            }
+
+            return BadRequest("Ocorreu um erro ao tentar editar o produto");
+        }
     }
 }
