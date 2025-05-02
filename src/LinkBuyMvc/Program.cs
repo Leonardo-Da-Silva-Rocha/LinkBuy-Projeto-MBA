@@ -1,6 +1,5 @@
 ﻿using LinkBuyLibrary.Configuration.Middlewares;
 using LinkBuyMvc.Configuration;
-using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,9 +15,7 @@ builder.AddInterfacesProgram();
 
 var app = builder.Build();
 
-var cultureInfo = new CultureInfo("en-US");
-CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
-CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+ConfiguracoesGerais.AddCultura();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
