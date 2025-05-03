@@ -1,6 +1,6 @@
 ## Aplicação de uma mini loja virtual e API RESTful
 
-Apresentação
+## Apresentação
 
 Este projeto é uma entrega do MBA DevXpert Full Stack .NET e refere-se ao módulo Introdução ao Desenvolvimento ASP.NET Core.
 
