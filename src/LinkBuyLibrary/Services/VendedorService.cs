@@ -13,39 +13,11 @@ namespace LinkBuyLibrary.Services
             _dbContext = dbContext;
         }
 
-        public async Task<int> CreateVendedorAsync(Vendedor vendedor)
-        {
-            await _dbContext.Vendedores.AddAsync(vendedor);
-            return await _dbContext.SaveChangesAsync();
-        }
-
-        public async Task<IEnumerable<Vendedor>> GetAllVendedoresAsync()
-        {
-            return await _dbContext.Vendedores.ToListAsync();
-        }
-
-        public async Task<Vendedor?> GetVendedorByIdAsync(int id)
-        {
-            return await _dbContext.Vendedores.FirstOrDefaultAsync(v => v.Id == id);
-        }
-
         public async Task<Vendedor?> GetVendedorByIdLoginAsync(string idLogin)
         {
             return await _dbContext.Vendedores.FirstOrDefaultAsync(v => v.FkLogin == idLogin);
         }
 
-        public async Task<int> DeleteVendedorAsync(Vendedor vendedor)
-        {
-            _dbContext.Remove(vendedor);
-            int result = await _dbContext.SaveChangesAsync();
-            return result;
-        }
 
-        public async Task<int> UpdateVendedorAsync(Vendedor vendedor)
-        {
-            _dbContext.Update(vendedor);
-            int result = await _dbContext.SaveChangesAsync();
-            return result;
-        }
     }
 }

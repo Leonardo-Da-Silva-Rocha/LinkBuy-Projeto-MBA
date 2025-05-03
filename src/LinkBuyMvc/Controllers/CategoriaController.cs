@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace LinkBuyMvc.Controllers
 {
     [Authorize]
-    [Route("categoria")]
+    [Route("categorias")]
     public class CategoriaController : Controller
     {
         private readonly CategoriaService _service;

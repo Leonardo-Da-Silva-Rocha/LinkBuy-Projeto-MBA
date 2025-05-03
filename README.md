@@ -1,24 +1,26 @@
-# ** Aplicação de uma mini loja virtual e API RESTful**
+Aplicação de uma mini loja virtual e API RESTful
 
-## **1. Apresentação**
+Apresentação
 
-Bem-vindo ao repositório do projeto Gestão de Mini Loja Virtual. Este projeto é uma entrega do MBA DevXpert Full Stack .NET e é referente ao módulo Introdução ao Desenvolvimento ASP.NET Core.
-O objetivo principal desenvolver uma aplicação plataforma web básica com uma interface intuitiva, que possibilite ao usuário realizar registro/login de usuário, cadastrar,
-visualizar, atualizar e remover categorias e produtos, além de consultar esses dados através de uma API REST básica.
+Este projeto é uma entrega do MBA DevXpert Full Stack .NET e refere-se ao módulo Introdução ao Desenvolvimento ASP.NET Core.
 
-### **Autor(es)**
+O principal objetivo é desenvolver uma plataforma web básica com uma interface intuitiva, que permita ao usuário realizar registro e login, bem como cadastrar, visualizar, atualizar e remover categorias e produtos. Além disso, os dados podem ser consultados e manipulados por meio de uma API REST simples.
+
+A aplicação foi desenvolvida em duas versões separadas: uma em ASP.NET MVC e outra como API REST. Ambas oferecem as mesmas funcionalidades, porém a aplicação MVC não consome a API — elas funcionam de forma independente, mas compartilham a mesma estrutura e lógica de negócio.
+
+Autor(es)
 - Leonardo Da Silva Rocha
 
-## **2. Proposta do Projeto**
+Proposta do Projeto
 
 O projeto consiste em:
 
 - **Aplicação MVC:** Interface web para uma Mini Loja Virtual.
 - **API RESTful:** Exposição dos recursos da Mini Loja Virtual para integração com outras aplicações ou desenvolvimento de front-ends alternativos.
-- **Autenticação e Autorização:** Implementação de controle de acesso, diferenciando administradores e usuários comuns.
-- **Acesso a Dados:** Implementação de acesso ao banco de dados através de ORM.
+- **Autenticação e Autorização:** Implementação básica de controle de acesso com registro e login de usuários.
+- **Acesso a Dados:** Implementação do acesso ao banco de dados utilizando o ORM Entity Framework, com abordagem Code First.
 
-## **3. Tecnologias Utilizadas**
+Tecnologias Utilizadas
 
 - **Linguagem de Programação:** C#
 - **Frameworks:**
@@ -34,7 +36,7 @@ O projeto consiste em:
   - HTML/CSS para estilização básica
 - **Documentação da API:** Swagger
 
-## **4. Estrutura do Projeto**
+Estrutura do Projeto
 
 A estrutura do projeto é organizada da seguinte forma:
 

@@ -8,7 +8,7 @@ using System.Security.Claims;
 namespace LinkBuyMvc.Controllers
 {
     [Authorize]
-    [Route("produto")]
+    [Route("produtos")]
     public class ProdutoController : Controller
     {
         private readonly ProdutoService _service;
