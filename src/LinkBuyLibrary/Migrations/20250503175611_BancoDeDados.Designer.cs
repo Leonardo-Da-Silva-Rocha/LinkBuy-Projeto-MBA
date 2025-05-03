@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LinkBuyLibrary.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250429153903_NovaMigration")]
-    partial class NovaMigration
+    [Migration("20250503175611_BancoDeDados")]
+    partial class BancoDeDados
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
