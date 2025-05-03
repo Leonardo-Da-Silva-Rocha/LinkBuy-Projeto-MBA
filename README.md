@@ -1,4 +1,4 @@
-Aplicação de uma mini loja virtual e API RESTful
+## Aplicação de uma mini loja virtual e API RESTful
 
 Apresentação
 
