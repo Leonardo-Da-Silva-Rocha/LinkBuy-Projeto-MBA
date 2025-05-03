@@ -1,4 +1,4 @@
-## Aplicação de uma mini loja virtual e API RESTful
+## Aplicação de uma mini loja virtual e API RESTfull
 
 ## Apresentação
 
@@ -8,10 +8,10 @@ O principal objetivo é desenvolver uma plataforma web básica com uma interface
 
 A aplicação foi desenvolvida em duas versões separadas: uma em ASP.NET MVC e outra como API REST. Ambas oferecem as mesmas funcionalidades, porém a aplicação MVC não consome a API — elas funcionam de forma independente, mas compartilham a mesma estrutura e lógica de negócio.
 
-##Autor(es)
+## Autor(es)
 - Leonardo Da Silva Rocha
 
-##Proposta do Projeto
+## Proposta do Projeto
 
 O projeto consiste em:
 
@@ -20,7 +20,7 @@ O projeto consiste em:
 - **Autenticação e Autorização:** Implementação básica de controle de acesso com registro e login de usuários.
 - **Acesso a Dados:** Implementação do acesso ao banco de dados utilizando o ORM Entity Framework, com abordagem Code First.
 
-##Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **Linguagem de Programação:** C#
 - **Frameworks:**
@@ -36,7 +36,7 @@ O projeto consiste em:
   - HTML/CSS para estilização básica
 - **Documentação da API:** Swagger
 
-##Estrutura do Projeto
+## Estrutura do Projeto
 
 A estrutura do projeto é organizada da seguinte forma:
 
