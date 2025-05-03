@@ -18,6 +18,9 @@ namespace LinkBuyLibrary.Services
             return await _dbContext.Vendedores.FirstOrDefaultAsync(v => v.FkLogin == idLogin);
         }
 
-
+        public async Task<Vendedor?> GetVendedorByIdAsync(int id)
+        {
+            return await _dbContext.Vendedores.FirstOrDefaultAsync(v => v.Id == id);
+        }
     }
 }

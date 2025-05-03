@@ -8,10 +8,10 @@ O principal objetivo é desenvolver uma plataforma web básica com uma interface
 
 A aplicação foi desenvolvida em duas versões separadas: uma em ASP.NET MVC e outra como API REST. Ambas oferecem as mesmas funcionalidades, porém a aplicação MVC não consome a API — elas funcionam de forma independente, mas compartilham a mesma estrutura e lógica de negócio.
 
-Autor(es)
+##Autor(es)
 - Leonardo Da Silva Rocha
 
-Proposta do Projeto
+##Proposta do Projeto
 
 O projeto consiste em:
 
@@ -20,7 +20,7 @@ O projeto consiste em:
 - **Autenticação e Autorização:** Implementação básica de controle de acesso com registro e login de usuários.
 - **Acesso a Dados:** Implementação do acesso ao banco de dados utilizando o ORM Entity Framework, com abordagem Code First.
 
-Tecnologias Utilizadas
+##Tecnologias Utilizadas
 
 - **Linguagem de Programação:** C#
 - **Frameworks:**
@@ -36,7 +36,7 @@ Tecnologias Utilizadas
   - HTML/CSS para estilização básica
 - **Documentação da API:** Swagger
 
-Estrutura do Projeto
+##Estrutura do Projeto
 
 A estrutura do projeto é organizada da seguinte forma:
 
@@ -49,14 +49,14 @@ A estrutura do projeto é organizada da seguinte forma:
 - FEEDBACK.md - Arquivo para Consolidação dos Feedbacks
 - .gitignore - Arquivo de Ignoração do Git
 
-## **5. Funcionalidades Implementadas**
+## Funcionalidades Implementadas
 
-- **CRUD para Posts e Comentários:** Permite criar, editar, visualizar e excluir categorias e produtos.
-- **Autenticação e Autorização:** Diferenciação entre usuários comuns e administradores.
+- **CRUD para categorias e produtos:** Permite criar, editar, visualizar e excluir categorias e produtos.
+- **Autenticação e Autorização:** Implementação básica de controle de acesso com registro e login de usuários.
 - **API RESTful:** Exposição de endpoints para operações CRUD via API.
 - **Documentação da API:** Documentação automática dos endpoints da API utilizando Swagger.
 
-## **6. Como Executar o Projeto**
+## **Como Executar o Projeto**
 
 ### **Pré-requisitos**
 
@@ -68,28 +68,42 @@ A estrutura do projeto é organizada da seguinte forma:
 ### **Passos para Execução**
 
 1. **Clone o Repositório:**
-   - `git clone https://github.com/seu-usuario/nome-do-repositorio.git`
-   - `cd nome-do-repositorio`
+   
+   - `git clone https://github.com/Leonardo-Da-Silva-Rocha/LinkBuy-Projeto-MBA.git`
 
 2. **Configuração do Banco de Dados:**
-   - No arquivo `appsettings.json`, configure a string de conexão do SQL Server.
-   - Rode o projeto para que a configuração do Seed crie o banco e popule com os dados básicos
+   
+   - No arquivo appsettings.json, você pode escolher qual banco de dados utilizar
+   
+   - SQLite (padrão) A string de conexão para SQLite já está configurada por padrão. O banco de dados será gerado automaticamente e populado com os dados iniciais através do Seed.
+	
+   - Caso prefira usar o SQL Server, altere a string de conexão.
 
 3. **Executar a Aplicação MVC:**
-   - Acesse a aplicação em: http://localhost:7250
+   
+   - No Visual Studio ou em sua ide de preferencia, selecione o projeto MVC como projeto de inicialização.
+
+   - Execute a aplicação.
+
+   - Acesse em: https://localhost:7250/
 
 4. **Executar a API:**
-   - Acesse a documentação da API em: http://localhost:5001/swagger
+   
+   - No Visual Studio, selecione o projeto API como projeto de inicialização.
+   
+   - Execute a aplicação.
 
-## **7. Instruções de Configuração**
+   - Acesse a documentação Swagger em: https://localhost:7047/swagger/index.html
+
+## Instruções de Configuração
 
 - **JWT para API:** As chaves de configuração do JWT estão no `appsettings.json`.
 - **Migrações do Banco de Dados:** As migrações são gerenciadas pelo Entity Framework Core. Não é necessário aplicar devido a configuração do Seed de dados.
 
-## **8. Documentação da API**
+## Documentação da API
 
 A documentação da API está disponível através do Swagger. Após iniciar a API, acesse a documentação em:
 
-http://localhost:5001/swagger
+https://localhost:7047/swagger/index.html
 
 
