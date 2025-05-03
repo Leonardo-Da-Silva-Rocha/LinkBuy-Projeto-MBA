@@ -40,11 +40,10 @@ O projeto consiste em:
 
 A estrutura do projeto é organizada da seguinte forma:
 
-
 - src/
-  - LinkBuyMvc.Web/ - Projeto MVC
-  - LinkBuyApi.Api/ - API RESTful
-  - LinkBuy.Data/ - Modelos de Dados e Configuração do EF Core
+  - LinkBuyMvc/ - Projeto MVC
+  - LinkBuyApi/ - API RESTful
+  - LinkBuyLibrary/ - Biblioteca de Classes (contém o CRUD, banco de dados e DbContext, utilizada tanto pela API quanto pelo MVC)
 - README.md - Arquivo de Documentação do Projeto
 - FEEDBACK.md - Arquivo para Consolidação dos Feedbacks
 - .gitignore - Arquivo de Ignoração do Git
@@ -105,5 +104,3 @@ A estrutura do projeto é organizada da seguinte forma:
 A documentação da API está disponível através do Swagger. Após iniciar a API, acesse a documentação em:
 
 https://localhost:7047/swagger/index.html
-
-
