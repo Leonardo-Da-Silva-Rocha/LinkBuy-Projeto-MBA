@@ -1,9 +1,12 @@
 ﻿using LinkBuyLibrary.Models;
 using LinkBuyLibrary.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace LinkBuyApi.Controllers
 {
+    [Authorize]
     [Route("api/produto")]
     [ApiController]
     public class ProdutoController : ControllerBase
@@ -19,11 +22,13 @@ namespace LinkBuyApi.Controllers
             _categoriaService = categoriaService;
         }
 
-        [HttpGet("todos-produtos")]
+        [AllowAnonymous]
+        [HttpGet("todos-produtos")] // todos proutos cadastrados
         [ProducesResponseType(typeof(Produto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Categoria>> GetAllProdutos()
         {
+            
             var produto = await _service.GetAllProdutos();
 
             if (produto is null) return NotFound();
@@ -31,24 +36,56 @@ namespace LinkBuyApi.Controllers
             return Ok(produto);
         }
 
-        [HttpGet("{id:int}")]
+        [AllowAnonymous]
+        [HttpGet("todos-produtos-vendeor")] // todos proutos do vendedor logado
         [ProducesResponseType(typeof(Produto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Categoria>> Get(int id)
+        public async Task<ActionResult<Categoria>> GetAllProdutosVendedor()
         {
-            var produto = await _service.GetDetalheProduto(id);
+
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var vendedor = await _vendedorService.GetVendedorByIdLoginAsync(userIdString);
+
+            if (vendedor == null) return BadRequest("Faça a autenticação para prosseguir");
+
+            var produto = await _service.GetAllProdutosByVendedor(vendedor.Id);
 
             if (produto is null) return NotFound();
 
             return Ok(produto);
         }
 
-        [HttpGet("buscar-produto/{CategoriaId:int}")]
+        [HttpGet("{id:int}")] // todos proutos por id do vendedor logado
+        [ProducesResponseType(typeof(Produto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<Categoria>> Get(int id)
+        {
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var vendedor = await _vendedorService.GetVendedorByIdLoginAsync(userIdString);
+
+            if (vendedor == null) return BadRequest("Faça a autenticação para prosseguir");
+
+            var produto = await _service.GetProutoByVendedor(id, vendedor.Id);
+
+            if (produto is null) return NotFound();
+
+            return Ok(produto);
+        }
+
+        [HttpGet("buscar-produto/{CategoriaId:int}")] // todos proutos por categoria do vendedor logado
         [ProducesResponseType(typeof(Produto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Categoria>> GetProdutoByCategoria(int CategoriaId)
         {
-            var produto = await _service.GetProdutoByCategoria(CategoriaId);
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var vendedor = await _vendedorService.GetVendedorByIdLoginAsync(userIdString);
+
+            if (vendedor == null) return BadRequest("Faça a autenticação para prosseguir");
+
+            var produto = await _service.GetProdutoByCategoria(CategoriaId, vendedor.Id);
 
             if (produto is null || produto.Count() <= 0) return NotFound("Nenhum produto encontrado com a categoria infomada");
 
@@ -56,7 +93,7 @@ namespace LinkBuyApi.Controllers
         }
 
 
-        [HttpPost("novo-produto")]
+        [HttpPost("novo-produto")] // novo prouto do vendedor logado
         [ProducesResponseType(typeof(Produto), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -69,9 +106,11 @@ namespace LinkBuyApi.Controllers
                 Title = "Um ou mais erros de validação ocorreram!"
             });
 
-            var vendedor = await _vendedorService.GetVendedorByIdAsync(produto.VendedorId);
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            if (vendedor == null) return NotFound("Vendedor não encontrado");
+            var vendedor = await _vendedorService.GetVendedorByIdLoginAsync(userIdString);
+
+            if (vendedor == null) return BadRequest("Faça a autenticação para prosseguir");
 
             var categoria = await _categoriaService.GetCategoriasByIdAsync(produto.CategoriaId);
 
@@ -84,7 +123,7 @@ namespace LinkBuyApi.Controllers
             Produto inserirProduto = new Produto
             {
                 CategoriaId = produto.CategoriaId,
-                VendedorId = produto.VendedorId,
+                VendedorId = vendedor.Id,
                 Descricao = produto.Descricao,
                 Estoque = produto.Estoque,
                 Imagem = nomeArquivo,
@@ -103,7 +142,7 @@ namespace LinkBuyApi.Controllers
         }
 
 
-        [HttpDelete("deletar/{id:int}")]
+        [HttpDelete("deletar/{id:int}")] // deletar prouto do vendedor logado
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -111,11 +150,16 @@ namespace LinkBuyApi.Controllers
         {
             try
             {
-                var produto = await _service.GetDetalheProduto(id);
+                var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                var vendedor = await _vendedorService.GetVendedorByIdLoginAsync(userIdString);
+
+                if (vendedor == null) return BadRequest("Faça a autenticação para prosseguir");
+
+                var produto = await _service.GetProutoByVendedor(id, vendedor.Id);
 
                 if (produto == null)
                 {
-
                     return NotFound("Produto não encontrado");
                 }
 
@@ -129,14 +173,14 @@ namespace LinkBuyApi.Controllers
 
                 return BadRequest("Ocorreu um erro ao deletar o produto");
             }
-            catch
+            catch(Exception ex)
             {
                 return BadRequest("Ocorreu um erro ao deletar o produto");
             }
         }
 
 
-        [HttpPut("editar-produto/{id:int}")]
+        [HttpPut("editar-produto/{id:int}")] // editar prouto do vendedor logado
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -149,9 +193,11 @@ namespace LinkBuyApi.Controllers
                 Title = "Um ou mais erros de validação ocorreram!"
             });
 
-            var vendedor = await _vendedorService.GetVendedorByIdAsync(produtoInsert.VendedorId);
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            if (vendedor == null) return NotFound("Vendedor não encontrado");
+            var vendedor = await _vendedorService.GetVendedorByIdLoginAsync(userIdString);
+
+            if (vendedor == null) return BadRequest("Faça a autenticação para prosseguir");
 
             var categoria = await _categoriaService.GetCategoriasByIdAsync(produtoInsert.CategoriaId);
 
@@ -174,7 +220,7 @@ namespace LinkBuyApi.Controllers
                 Estoque = produtoInsert.Estoque,
                 Valor = produtoInsert.Valor,
                 Imagem = nomeArquivo,
-                VendedorId = produtoInsert.VendedorId,
+                VendedorId = vendedor.Id,
                 CategoriaId = produtoInsert.CategoriaId,
             };
 

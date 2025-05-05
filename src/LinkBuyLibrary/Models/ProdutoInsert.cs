@@ -10,7 +10,7 @@ namespace LinkBuyLibrary.Models
 {
     public class ProdutoInsert
     {
-        
+
         [Required(ErrorMessage = "O produto precida ter uma descrição.")]
         [StringLength(maximumLength: 50, MinimumLength = 5, ErrorMessage = "O campo descrição precisa ter no minimo 5 caracteres e no maximo 50.")]
         public string? Descricao { get; set; }
@@ -32,9 +32,6 @@ namespace LinkBuyLibrary.Models
         [Required(ErrorMessage = "A categoria é obrigatória")]
         public int CategoriaId { get; set; }
 
-        [Required(ErrorMessage = "O vendedor é obrigatorio")]
-        public int VendedorId { get; set; }
 
-        
     }
 }

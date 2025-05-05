@@ -35,11 +35,15 @@ namespace LinkBuyMvc.Controllers
         [HttpGet("gerenciar/detalhes")]
         public async Task<IActionResult> Details(int id)
         {
-            var produto = await _service.GetDetalheProduto(id);
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var vendedor = await _vendedorService.GetVendedorByIdLoginAsync(userIdString);
+
+            var produto = await _service.GetProutoByVendedor(id, vendedor.Id);
 
             if (produto == null)
             {
-                return NotFound();
+                return View(produto);
             }
 
             return View(produto);
