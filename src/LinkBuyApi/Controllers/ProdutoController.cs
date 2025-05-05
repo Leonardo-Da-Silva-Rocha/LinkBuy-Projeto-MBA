@@ -26,7 +26,7 @@ namespace LinkBuyApi.Controllers
         [HttpGet("todos-produtos")] // todos proutos cadastrados
         [ProducesResponseType(typeof(Produto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Categoria>> GetAllProdutos()
+        public async Task<ActionResult<Produto>> GetAllProdutos()
         {
             
             var produto = await _service.GetAllProdutos();
@@ -40,7 +40,7 @@ namespace LinkBuyApi.Controllers
         [HttpGet("todos-produtos-vendeor")] // todos proutos do vendedor logado
         [ProducesResponseType(typeof(Produto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Categoria>> GetAllProdutosVendedor()
+        public async Task<ActionResult<Produto>> GetAllProdutosVendedor()
         {
 
             var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -59,7 +59,7 @@ namespace LinkBuyApi.Controllers
         [HttpGet("{id:int}")] // todos proutos por id do vendedor logado
         [ProducesResponseType(typeof(Produto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Categoria>> Get(int id)
+        public async Task<ActionResult<Produto>> Get(int id)
         {
             var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
@@ -77,7 +77,7 @@ namespace LinkBuyApi.Controllers
         [HttpGet("buscar-produto/{CategoriaId:int}")] // todos proutos por categoria do vendedor logado
         [ProducesResponseType(typeof(Produto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Categoria>> GetProdutoByCategoria(int CategoriaId)
+        public async Task<ActionResult<Produto>> GetProdutoByCategoria(int CategoriaId)
         {
             var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
