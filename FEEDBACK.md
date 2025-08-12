@@ -31,13 +31,9 @@
     - Três camadas bem separadas: API, MVC, e uma biblioteca comum (`LinkBuyLibrary`) como Core.
     - Uso de abstrações e organização modular clara.
 
-
-
   * Pontos negativos:
     - A classe `AddInterfacesProgram` registra dependências diretamente, mas os serviços registrados não possuem interfaces, ferindo o princípio da inversão de dependência do SOLID.
     - `JwtSettings` está na mesma pasta das entidades de negócio. Para uma melhor separação de responsabilidades, deveria estar em uma pasta separada de configurações e outros tipos de classes de modelos ou etc.
-
-
 
 ### Funcionalidade
   * Pontos positivos:
@@ -62,11 +58,8 @@
     - Projeto organizado em `src`, arquivos `.sln` na raiz, documentação presente e clara.
     - Estrutura das camadas coesa e alinhada ao propósito.
 
-
   * Pontos negativos:
     - Nenhum.
-
-
 
 ### Documentação
   * Pontos positivos:
@@ -74,19 +67,12 @@
     - `FEEDBACK.md` incluso.
     - Swagger funcional na API.
 
-
-
-
-
   * Pontos negativos:
     - Nenhum.
-
-
 
 ### Instalação
   * Pontos positivos:
     - Uso de SQLite com seed de dados e migrations automáticas funcional.
-
 
   * Pontos negativos:
     - Nenhum.
